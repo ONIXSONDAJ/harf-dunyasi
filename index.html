@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Harf Dünyası</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <button id="geri" class="ikon-btn" title="Geri">◀</button>
+  <h1 id="baslik">Harf Dünyası</h1>
+  <div id="ust-yildiz" title="Toplam yıldız">⭐ 0</div>
+</header>
+
+<main>
+
+  <!-- ANA MENÜ -->
+  <section id="ekran-menu" class="ekran aktif">
+    <div class="karsilama">
+      <div class="maskot">🦉</div>
+      <h2 id="selam">Merhaba!</h2>
+      <p id="ilerleme-metni">Harfleri öğrenmeye hazır mısın?</p>
+      <div class="ilerleme-cubugu"><div id="ilerleme-dolu"></div></div>
+    </div>
+    <div class="menu-butonlar">
+      <button class="buyuk-btn renk1" data-git="ders">📖 Harfleri Öğren</button>
+      <button class="buyuk-btn renk2" data-git="oyunlar">🎮 Oyunlar</button>
+      <button class="buyuk-btn renk3" data-git="ayarlar">⚙️ Ayarlar</button>
+    </div>
+  </section>
+
+  <!-- DERS: HARF LİSTESİ -->
+  <section id="ekran-ders" class="ekran">
+    <p class="ipucu">Bir harfe dokun ve öğrenmeye başla!</p>
+    <div id="harf-listesi"></div>
+  </section>
+
+  <!-- DERS: TEK HARF -->
+  <section id="ekran-harf" class="ekran">
+    <div class="harf-kart">
+      <div class="harf-buyuk-alan">
+        <span id="harf-buyuk">A</span>
+        <span id="harf-kucuk">a</span>
+      </div>
+      <div id="harf-rozet" class="rozet"></div>
+      <div class="harf-araclar">
+        <button id="btn-harf-sesi" class="orta-btn renk2">🔊 Sesini Dinle</button>
+        <button id="btn-ogrendim" class="orta-btn renk4">⭐ Öğrendim!</button>
+      </div>
+      <p id="harf-not" class="not"></p>
+    </div>
+
+    <h3 class="alt-baslik">Bu harfle başlayan kelimeler</h3>
+    <div id="kelime-kartlari" class="kelime-kartlari"></div>
+
+    <h3 class="alt-baslik">Harfi Yaz ✏️</h3>
+    <p class="ipucu">Gri harfin üstünden parmağınla ya da fareyle geç.</p>
+    <div class="ciz-alan">
+      <canvas id="ciz" width="300" height="300"></canvas>
+      <div class="ciz-araclar">
+        <button id="ciz-buyuk" class="kucuk-btn secili">Büyük</button>
+        <button id="ciz-kucuk" class="kucuk-btn">Küçük</button>
+        <button id="ciz-temizle" class="kucuk-btn">🧽 Temizle</button>
+      </div>
+    </div>
+
+    <div class="harf-gezin">
+      <button id="onceki-harf" class="orta-btn renk3">◀ Önceki</button>
+      <button id="sonraki-harf" class="orta-btn renk3">Sonraki ▶</button>
+    </div>
+  </section>
+
+  <!-- OYUN MENÜSÜ -->
+  <section id="ekran-oyunlar" class="ekran">
+    <p class="ipucu" id="oyun-grup-bilgi"></p>
+    <div class="menu-butonlar">
+      <button class="buyuk-btn renk1" data-git="oyun-ses">🔊 Sesi Dinle, Harfi Bul</button>
+      <button class="buyuk-btn renk2" data-git="oyun-resim">🖼️ Hangi Harfle Başlar?</button>
+      <button class="buyuk-btn renk3" data-git="oyun-eslestir">🃏 Büyük-Küçük Eşleştir</button>
+      <button class="buyuk-btn renk4" data-git="oyun-balon">🎈 Balon Patlat</button>
+    </div>
+  </section>
+
+  <!-- OYUN: SES -->
+  <section id="ekran-oyun-ses" class="ekran oyun">
+    <div class="oyun-ust"><span id="ses-tur"></span><span id="ses-puan"></span></div>
+    <div class="soru-alan">
+      <button id="ses-dinle" class="dev-btn">🔊</button>
+      <p class="ipucu">Sesi dinle, doğru harfi bul!</p>
+    </div>
+    <div id="ses-secenekler" class="secenekler"></div>
+  </section>
+
+  <!-- OYUN: RESİM -->
+  <section id="ekran-oyun-resim" class="ekran oyun">
+    <div class="oyun-ust"><span id="resim-tur"></span><span id="resim-puan"></span></div>
+    <div class="soru-alan">
+      <div id="resim-emoji" class="dev-emoji">🍎</div>
+      <button id="resim-dinle" class="kucuk-btn">🔊 Kelimeyi dinle</button>
+      <p id="resim-kelime" class="kelime-goster"></p>
+    </div>
+    <div id="resim-secenekler" class="secenekler"></div>
+  </section>
+
+  <!-- OYUN: EŞLEŞTİR -->
+  <section id="ekran-oyun-eslestir" class="ekran oyun">
+    <div class="oyun-ust"><span id="es-hamle"></span><span id="es-kalan"></span></div>
+    <p class="ipucu">Büyük harfi küçüğüyle eşleştir!</p>
+    <div id="es-tahta" class="es-tahta"></div>
+  </section>
+
+  <!-- OYUN: BALON -->
+  <section id="ekran-oyun-balon" class="ekran oyun">
+    <div class="oyun-ust">
+      <span>Patlat: <b id="balon-hedef" class="hedef-harf">a</b></span>
+      <span id="balon-sure">⏱ 45</span>
+      <span id="balon-puan">🎯 0</span>
+    </div>
+    <div id="balon-alan" class="balon-alan">
+      <button id="balon-baslat" class="buyuk-btn renk4">▶ Başla</button>
+    </div>
+  </section>
+
+  <!-- AYARLAR -->
+  <section id="ekran-ayarlar" class="ekran">
+    <div class="ayar-kutu">
+      <label for="ayar-isim">Adın ne?</label>
+      <input id="ayar-isim" type="text" placeholder="Adını yaz" maxlength="20">
+
+      <label for="ayar-grup">Okulda kaçıncı harf grubundasınız?</label>
+      <select id="ayar-grup">
+        <option value="1">1. Grup (e, l, a, k, i, n)</option>
+        <option value="2">2. Grup (+ o, m, u, t, ü, y)</option>
+        <option value="3">3. Grup (+ ö, r, ı, d, s, b)</option>
+        <option value="4">4. Grup (+ z, ç, g, ş, c, p)</option>
+        <option value="5">5. Grup (+ h, v, ğ, f, j) – Tüm harfler</option>
+      </select>
+      <p class="not">Oyunlarda yalnızca bu gruba kadar olan harfler çıkar.</p>
+
+      <label>Sesli okuma</label>
+      <p id="ayar-ses-durumu" class="not">Kontrol ediliyor...</p>
+
+      <button id="ayar-kaydet" class="orta-btn renk4">💾 Kaydet</button>
+      <button id="ayar-sifirla" class="orta-btn renk-gri">🗑️ İlerlemeyi Sıfırla</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- SONUÇ PANELİ -->
+<div id="sonuc" class="sonuc gizli">
+  <div class="sonuc-kutu">
+    <div id="sonuc-yildiz" class="sonuc-yildiz">⭐⭐⭐</div>
+    <h2 id="sonuc-baslik">Harikasın!</h2>
+    <p id="sonuc-metin"></p>
+    <button id="sonuc-tekrar" class="orta-btn renk2">🔁 Tekrar Oyna</button>
+    <button id="sonuc-menu" class="orta-btn renk3">🏠 Oyunlara Dön</button>
+  </div>
+</div>
+
+<div id="konfeti"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
