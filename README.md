@@ -1,6 +1,6 @@
 # Harf Dünyası 🦉
 
-1. sınıfa yeni başlayan çocuklar için harf öğrenme uygulaması. Hem ders hem oyun.
+Birinci sınıfa yeni başlayan çocuklar için harf öğrenme uygulaması. Hem ders hem oyun.
 
 ## Nasıl açılır?
 
