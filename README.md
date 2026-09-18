@@ -27,6 +27,12 @@ Tablet veya telefonda kullanmak için klasörü telefona kopyalayıp `index.html
 - 🖼️ Hangi Harfle Başlar: resimdeki şeyin baş harfini bul
 - 🃏 Büyük-Küçük Eşleştir: hafıza oyunu, büyük harfi küçüğüyle eşleştir
 - 🎈 Balon Patlat: 45 saniyede hedef harfli balonları patlat
+- 🧩 Kelime Kur: resme bak, harflere sırayla dokunup kelimeyi oluştur
+- ❓ Eksik Harf: kelimedeki boş harfi tamamla
+- 🔍 Harf Avı: 5x5 tabloda hedef harfin hepsini bul
+- 👀 Farklı Olanı Bul: 9 harften farklı olanı seç (b/d, m/n, u/ü gibi karışan harfler)
+
+Kelime oyunlarındaki kelimeler de seçili harf grubuna göre süzülür; çocuk henüz görmediği harfle karşılaşmaz.
 
 Her oyun sonunda 1-3 yıldız kazanılır, yıldızlar ve öğrenilen harfler tarayıcıda saklanır.
 

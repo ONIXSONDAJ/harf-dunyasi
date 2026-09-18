@@ -45,6 +45,41 @@ const KELIMELER = {
   j: [['Jaguar', '🐆'], ['Jeton', '🪙'], ['Jelibon', '🍬']],
 };
 
+/* Kelime Kur / Eksik Harf oyunları için kısa kelimeler (küçük harf, en fazla 7 harf) */
+const KELIME_LISTESI = [
+  // 1. grup harfleriyle
+  ['el', '✋'], ['kale', '🏰'], ['anne', '👩'], ['lale', '🌷'], ['kek', '🧁'], ['inek', '🐄'], ['nine', '👵'], ['ekin', '🌾'],
+  // 2. grup
+  ['at', '🐎'], ['ay', '🌙'], ['ok', '🏹'], ['top', '⚽'], ['elma', '🍎'], ['kutu', '📦'], ['okul', '🏫'], ['limon', '🍋'],
+  ['koyun', '🐑'], ['ayna', '🪞'], ['kayık', '🛶'], ['tilki', '🦊'], ['kilit', '🔒'], ['mum', '🕯️'], ['yol', '🛣️'],
+  ['kalem', '✏️'], ['etek', '👗'], ['ayak', '🦶'], ['kulak', '👂'], ['et', '🥩'], ['yumak', '🧶'], ['tay', '🐴'],
+  ['maymun', '🐒'], ['uyku', '😴'], ['ev', '🏠'],
+  // 3. grup
+  ['ördek', '🦆'], ['balık', '🐟'], ['araba', '🚗'], ['kedi', '🐱'], ['arı', '🐝'], ['ayı', '🐻'], ['deve', '🐪'],
+  ['ekmek', '🍞'], ['süt', '🥛'], ['saat', '⏰'], ['bebek', '👶'], ['radyo', '📻'], ['robot', '🤖'], ['roket', '🚀'],
+  ['balon', '🎈'], ['kurt', '🐺'], ['kitap', '📖'], ['burun', '👃'], ['bal', '🍯'], ['su', '💧'], ['bot', '🥾'],
+  ['kar', '❄️'], ['dede', '👴'], ['baba', '👨'], ['abla', '👧'], ['aslan', '🦁'], ['sincap', '🐿️'], ['tren', '🚂'],
+  ['domates', '🍅'], ['tavuk', '🐔'], ['sandal', '🛶'], ['dolma', '🥙'],
+  // 4. grup
+  ['muz', '🍌'], ['çiçek', '🌸'], ['çilek', '🍓'], ['şapka', '🎩'], ['kuş', '🐦'], ['gül', '🌹'], ['gemi', '🚢'],
+  ['güneş', '☀️'], ['zar', '🎲'], ['zil', '🔔'], ['ceviz', '🌰'], ['pasta', '🎂'], ['çorap', '🧦'], ['koç', '🐏'],
+  ['geyik', '🦌'], ['keçi', '🐐'], ['zürafa', '🦒'], ['zebra', '🦓'], ['peynir', '🧀'], ['çay', '🍵'], ['diş', '🦷'],
+  ['şeker', '🍬'], ['uçak', '✈️'], ['gözlük', '👓'], ['kapı', '🚪'], ['çanta', '👜'], ['pizza', '🍕'], ['penguen', '🐧'],
+  ['civciv', '🐤'], ['çekiç', '🔨'], ['göz', '👁️'], ['zeytin', '🫒'], ['örümcek', '🕷️'], ['cetvel', '📏'],
+  // 5. grup
+  ['fil', '🐘'], ['fare', '🐭'], ['horoz', '🐓'], ['havuç', '🥕'], ['vazo', '🏺'], ['vapur', '⛴️'], ['ağaç', '🌳'],
+  ['dağ', '⛰️'], ['yağmur', '🌧️'], ['jeton', '🪙'], ['hediye', '🎁'], ['fener', '🔦'], ['vişne', '🍒'],
+  ['fıstık', '🥜'], ['yaprak', '🍃'], ['fincan', '☕'], ['jelibon', '🍬'], ['fırça', '🖌️'], ['hamburger', '🍔'],
+];
+
+/* Birbirine karıştırılan harfler (Farklı Olanı Bul oyunu) */
+const BENZER = {
+  b: ['d', 'p'], d: ['b', 'p'], p: ['b', 'd'], m: ['n'], n: ['m', 'h'], h: ['n'],
+  u: ['ü'], ü: ['u'], o: ['ö'], ö: ['o'], ı: ['i'], i: ['ı'], c: ['ç'], ç: ['c'],
+  s: ['ş'], ş: ['s'], g: ['ğ'], ğ: ['g'], t: ['f'], f: ['t'], v: ['y'], y: ['v'],
+  l: ['i'], k: ['t'], e: ['a'], a: ['e'], r: ['n'], z: ['s'], j: ['y'],
+};
+
 /* =========================================================
    YARDIMCILAR
    ========================================================= */
@@ -179,11 +214,16 @@ const BASLIKLAR = {
   'oyun-resim': 'Hangi Harfle Başlar?',
   'oyun-eslestir': 'Büyük-Küçük Eşleştir',
   'oyun-balon': 'Balon Patlat',
+  'oyun-kelime': 'Kelime Kur',
+  'oyun-eksik': 'Eksik Harf',
+  'oyun-av': 'Harf Avı',
+  'oyun-farkli': 'Farklı Olanı Bul',
   ayarlar: 'Ayarlar',
 };
 const USTEKRAN = {
   ders: 'menu', harf: 'ders', oyunlar: 'menu', ayarlar: 'menu',
   'oyun-ses': 'oyunlar', 'oyun-resim': 'oyunlar', 'oyun-eslestir': 'oyunlar', 'oyun-balon': 'oyunlar',
+  'oyun-kelime': 'oyunlar', 'oyun-eksik': 'oyunlar', 'oyun-av': 'oyunlar', 'oyun-farkli': 'oyunlar',
 };
 let aktifEkran = 'menu';
 
@@ -205,6 +245,10 @@ function git(id) {
   if (id === 'oyun-resim') resimOyunuBasla();
   if (id === 'oyun-eslestir') eslestirBasla();
   if (id === 'oyun-balon') balonHazirla();
+  if (id === 'oyun-kelime') kelimeOyunuBasla();
+  if (id === 'oyun-eksik') eksikOyunuBasla();
+  if (id === 'oyun-av') avOyunuBasla();
+  if (id === 'oyun-farkli') farkliOyunuBasla();
 }
 
 $('#geri').addEventListener('click', () => {
@@ -439,7 +483,7 @@ function sonucGoster(dogru, toplam, tekrarFn) {
   yildizEkle(yildiz);
   $('#sonuc-yildiz').textContent = '⭐'.repeat(yildiz) + '☆'.repeat(3 - yildiz);
   $('#sonuc-baslik').textContent = yildiz === 3 ? 'Harikasın! 🎉' : yildiz === 2 ? 'Çok iyi! 👏' : 'Güzel deneme! 💪';
-  $('#sonuc-metin').textContent = `${toplam} sorudan ${dogru} tanesini doğru bildin. ${yildiz} yıldız kazandın!`;
+  $('#sonuc-metin').textContent = `${toplam} sorudan ${Math.round(dogru)} tanesini doğru bildin. ${yildiz} yıldız kazandın!`;
   $('#sonuc').classList.remove('gizli');
   sesEfekti('kazan');
   if (yildiz >= 2) konfeti(yildiz === 3 ? 80 : 40);
@@ -712,6 +756,269 @@ function balonBitir() {
   $('#sonuc-metin').textContent = `${balonOyun.puan} balon patlattın!`;
 }
 $('#balon-baslat').addEventListener('click', () => { sesEfekti('tik'); balonBasla(); });
+
+/* =========================================================
+   KELİME OYUNLARI ORTAK: gruba uygun kelimeler
+   ========================================================= */
+function uygunKelimeler(enAz = 2) {
+  const h = havuz();
+  const uygun = KELIME_LISTESI.filter(([k]) => k.length >= enAz && [...k].every((x) => h.includes(x)));
+  return uygun.length >= 4 ? uygun : KELIME_LISTESI.filter(([k]) => k.length >= enAz);
+}
+/* Aynı kelime art arda gelmesin diye karıştırılmış sıra */
+function kelimeSirasi(enAz) {
+  const liste = karistir(uygunKelimeler(enAz));
+  const sira = [];
+  while (sira.length < TUR_SAYISI) sira.push(...karistir(liste));
+  return sira.slice(0, TUR_SAYISI);
+}
+
+/* =========================================================
+   OYUN 5: KELİME KUR
+   ========================================================= */
+const kelimeOyun = { tur: 0, dogru: 0, kelime: '', konum: 0, hata: 0, sira: [], kilit: false };
+
+function kelimeOyunuBasla() {
+  kelimeOyun.tur = 0; kelimeOyun.dogru = 0;
+  kelimeOyun.sira = kelimeSirasi(2);
+  kelimeTurSonraki();
+}
+function kelimeTurSonraki() {
+  if (kelimeOyun.tur >= TUR_SAYISI) { sonucGoster(kelimeOyun.dogru, TUR_SAYISI, kelimeOyunuBasla); return; }
+  const [kelime, emoji] = kelimeOyun.sira[kelimeOyun.tur];
+  kelimeOyun.tur++;
+  kelimeOyun.kelime = kelime;
+  kelimeOyun.konum = 0;
+  kelimeOyun.hata = 0;
+  kelimeOyun.kilit = false;
+
+  $('#kelime-tur').textContent = `Soru ${kelimeOyun.tur} / ${TUR_SAYISI}`;
+  $('#kelime-puan').textContent = `✅ ${Math.round(kelimeOyun.dogru)}`;
+  $('#kelime-emoji').textContent = emoji;
+
+  const slotlar = $('#kelime-slotlar');
+  slotlar.innerHTML = '';
+  [...kelime].forEach(() => {
+    const s = document.createElement('div');
+    s.className = 'slot';
+    slotlar.appendChild(s);
+  });
+
+  // Taşlar: kelimenin harfleri + (3 harften uzunsa) 1 şaşırtıcı harf
+  const harfler = [...kelime];
+  if (kelime.length >= 3) {
+    const digerler = havuz().filter((h) => !harfler.includes(h));
+    if (digerler.length) harfler.push(rastgele(digerler));
+  }
+  const tasler = $('#kelime-tasler');
+  tasler.innerHTML = '';
+  karistir(harfler).forEach((h) => {
+    const b = document.createElement('button');
+    b.className = 'tas';
+    b.textContent = h;
+    b.addEventListener('click', () => kelimeTas(b, h));
+    tasler.appendChild(b);
+  });
+  zamanla(() => konus(kelime), 400);
+}
+function kelimeTas(buton, h) {
+  if (kelimeOyun.kilit || buton.classList.contains('kullanildi')) return;
+  const beklenen = kelimeOyun.kelime[kelimeOyun.konum];
+  if (h === beklenen) {
+    buton.classList.add('kullanildi');
+    const slot = $('#kelime-slotlar').children[kelimeOyun.konum];
+    slot.textContent = h;
+    slot.classList.add('dolu');
+    kelimeOyun.konum++;
+    sesEfekti('tik');
+    if (kelimeOyun.konum === kelimeOyun.kelime.length) {
+      kelimeOyun.kilit = true;
+      kelimeOyun.dogru += kelimeOyun.hata === 0 ? 1 : 0.5;
+      $('#kelime-puan').textContent = `✅ ${Math.round(kelimeOyun.dogru)}`;
+      sesEfekti('dogru');
+      zamanla(() => konus(kelimeOyun.kelime), 300);
+      zamanla(kelimeTurSonraki, 1500);
+    }
+  } else {
+    kelimeOyun.hata++;
+    buton.classList.add('yanlis');
+    sesEfekti('yanlis');
+    zamanla(() => buton.classList.remove('yanlis'), 500);
+  }
+}
+$('#kelime-dinle').addEventListener('click', () => konus(kelimeOyun.kelime));
+
+/* =========================================================
+   OYUN 6: EKSİK HARF
+   ========================================================= */
+const eksikOyun = { tur: 0, dogru: 0, kelime: '', konum: 0, sira: [], kilit: false };
+
+function eksikOyunuBasla() {
+  eksikOyun.tur = 0; eksikOyun.dogru = 0;
+  eksikOyun.sira = kelimeSirasi(3);
+  eksikTurSonraki();
+}
+function eksikKelimeYaz(gosterHarf) {
+  const k = eksikOyun.kelime;
+  const i = eksikOyun.konum;
+  const orta = gosterHarf ? `<span class="bosluk">${k[i]}</span>` : '<span class="bosluk">_</span>';
+  $('#eksik-kelime').innerHTML = k.slice(0, i) + orta + k.slice(i + 1);
+}
+function eksikTurSonraki() {
+  if (eksikOyun.tur >= TUR_SAYISI) { sonucGoster(eksikOyun.dogru, TUR_SAYISI, eksikOyunuBasla); return; }
+  const [kelime, emoji] = eksikOyun.sira[eksikOyun.tur];
+  eksikOyun.tur++;
+  eksikOyun.kelime = kelime;
+  eksikOyun.konum = Math.floor(Math.random() * kelime.length);
+  eksikOyun.kilit = false;
+
+  $('#eksik-tur').textContent = `Soru ${eksikOyun.tur} / ${TUR_SAYISI}`;
+  $('#eksik-puan').textContent = `✅ ${eksikOyun.dogru}`;
+  $('#eksik-emoji').textContent = emoji;
+  eksikKelimeYaz(false);
+
+  const dogruHarf = kelime[eksikOyun.konum];
+  const alan = $('#eksik-secenekler');
+  alan.innerHTML = '';
+  // Kelimede geçen diğer harfler şaşırtıcı olmasın
+  secenekUret(dogruHarf, 4, [...kelime]).forEach((h) => {
+    const b = document.createElement('button');
+    b.className = 'secenek';
+    b.textContent = h;
+    b.addEventListener('click', () => eksikCevap(b, h));
+    alan.appendChild(b);
+  });
+  zamanla(() => konus(kelime), 400);
+}
+function eksikCevap(buton, h) {
+  if (eksikOyun.kilit) return;
+  if (h === eksikOyun.kelime[eksikOyun.konum]) {
+    eksikOyun.kilit = true;
+    eksikOyun.dogru++;
+    buton.classList.add('dogru');
+    sesEfekti('dogru');
+    eksikKelimeYaz(true);
+    $('#eksik-puan').textContent = `✅ ${eksikOyun.dogru}`;
+    zamanla(() => konus(eksikOyun.kelime), 300);
+    zamanla(eksikTurSonraki, 1400);
+  } else {
+    buton.classList.add('yanlis');
+    sesEfekti('yanlis');
+    zamanla(() => buton.classList.remove('yanlis'), 500);
+  }
+}
+$('#eksik-dinle').addEventListener('click', () => konus(eksikOyun.kelime));
+
+/* =========================================================
+   OYUN 7: HARF AVI (5x5 tabloda hedef harfleri bul)
+   ========================================================= */
+const AV_TUR = 5;
+const avOyun = { tur: 0, puan: 0, hedef: 'a', kalan: 0, hata: 0, kilit: false };
+
+function avOyunuBasla() {
+  avOyun.tur = 0; avOyun.puan = 0;
+  avTurSonraki();
+}
+function avTurSonraki() {
+  if (avOyun.tur >= AV_TUR) { sonucGoster(avOyun.puan, AV_TUR * 2, avOyunuBasla); return; }
+  avOyun.tur++;
+  avOyun.hata = 0;
+  avOyun.kilit = false;
+  avOyun.hedef = rastgele(havuz());
+  const adet = 4 + Math.floor(Math.random() * 3); // 4-6 hedef
+  avOyun.kalan = adet;
+
+  $('#av-hedef').textContent = `${buyuk(avOyun.hedef)} ${avOyun.hedef}`;
+  $('#av-tur').textContent = `Tur ${avOyun.tur} / ${AV_TUR}`;
+  $('#av-kalan').textContent = `Kalan: ${adet}`;
+
+  const digerler = havuz().filter((h) => h !== avOyun.hedef);
+  const hucreler = [];
+  for (let i = 0; i < 25; i++) hucreler.push(i < adet ? avOyun.hedef : rastgele(digerler));
+  const izgara = $('#av-izgara');
+  izgara.innerHTML = '';
+  karistir(hucreler).forEach((h) => {
+    const b = document.createElement('button');
+    b.className = 'av-hucre';
+    b.textContent = Math.random() < 0.5 ? buyuk(h) : h;
+    b.addEventListener('click', () => avHucre(b, h));
+    izgara.appendChild(b);
+  });
+  zamanla(() => harfSesi(avOyun.hedef), 400);
+}
+function avHucre(buton, h) {
+  if (avOyun.kilit || buton.classList.contains('bulundu')) return;
+  if (h === avOyun.hedef) {
+    buton.classList.add('bulundu');
+    sesEfekti('tik');
+    avOyun.kalan--;
+    $('#av-kalan').textContent = `Kalan: ${avOyun.kalan}`;
+    if (avOyun.kalan === 0) {
+      avOyun.kilit = true;
+      avOyun.puan += avOyun.hata === 0 ? 2 : avOyun.hata <= 2 ? 1 : 0;
+      sesEfekti('dogru');
+      zamanla(avTurSonraki, 1000);
+    }
+  } else {
+    avOyun.hata++;
+    buton.classList.add('yanlis');
+    sesEfekti('yanlis');
+    zamanla(() => buton.classList.remove('yanlis'), 500);
+  }
+}
+
+/* =========================================================
+   OYUN 8: FARKLI OLANI BUL (3x3, biri farklı)
+   ========================================================= */
+const farkliOyun = { tur: 0, dogru: 0, kilit: false };
+
+function farkliOyunuBasla() {
+  farkliOyun.tur = 0; farkliOyun.dogru = 0;
+  farkliTurSonraki();
+}
+function farkliTurSonraki() {
+  if (farkliOyun.tur >= TUR_SAYISI) { sonucGoster(farkliOyun.dogru, TUR_SAYISI, farkliOyunuBasla); return; }
+  farkliOyun.tur++;
+  farkliOyun.kilit = false;
+  $('#farkli-tur').textContent = `Soru ${farkliOyun.tur} / ${TUR_SAYISI}`;
+  $('#farkli-puan').textContent = `✅ ${farkliOyun.dogru}`;
+
+  const h = havuz();
+  const temel = rastgele(h);
+  const benzerler = (BENZER[temel] || []).filter((x) => h.includes(x));
+  const farkli = benzerler.length && Math.random() < 0.75
+    ? rastgele(benzerler)
+    : rastgele(h.filter((x) => x !== temel));
+  const buyukMu = Math.random() < 0.4;
+  const farkliIndeks = Math.floor(Math.random() * 9);
+
+  const izgara = $('#farkli-izgara');
+  izgara.innerHTML = '';
+  for (let i = 0; i < 9; i++) {
+    const harf = i === farkliIndeks ? farkli : temel;
+    const b = document.createElement('button');
+    b.className = 'farkli-hucre';
+    b.textContent = buyukMu ? buyuk(harf) : harf;
+    b.addEventListener('click', () => farkliCevap(b, i === farkliIndeks, farkli));
+    izgara.appendChild(b);
+  }
+}
+function farkliCevap(buton, dogruMu, farkli) {
+  if (farkliOyun.kilit) return;
+  if (dogruMu) {
+    farkliOyun.kilit = true;
+    farkliOyun.dogru++;
+    buton.classList.add('dogru');
+    sesEfekti('dogru');
+    harfSesi(farkli);
+    $('#farkli-puan').textContent = `✅ ${farkliOyun.dogru}`;
+    zamanla(farkliTurSonraki, 1000);
+  } else {
+    buton.classList.add('yanlis');
+    sesEfekti('yanlis');
+    zamanla(() => buton.classList.remove('yanlis'), 500);
+  }
+}
 
 /* =========================================================
    AYARLAR

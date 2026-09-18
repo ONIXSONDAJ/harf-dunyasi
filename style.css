@@ -268,6 +268,60 @@ button { font-family: inherit; font-weight: 600; }
 @keyframes patla { to { transform: scale(1.6); opacity: 0; } }
 .balon.yanlis { animation: salla 0.3s; }
 
+/* Kelime Kur */
+.slotlar { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; min-height: 64px; }
+.slot {
+  width: 54px; height: 64px;
+  border-bottom: 4px solid var(--renk5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.4rem; font-weight: 700; color: var(--renk1);
+}
+.slot.dolu { animation: buyu 0.3s; }
+.tasler { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.tas {
+  width: 68px; height: 68px;
+  border: none; border-radius: 18px;
+  background: var(--kart); color: var(--metin);
+  font-size: 2.4rem; font-weight: 700;
+  cursor: pointer; box-shadow: var(--golge);
+}
+.tas:active { transform: translateY(3px); box-shadow: none; }
+.tas.kullanildi { visibility: hidden; }
+.tas.yanlis { background: #ffb3b3; animation: salla 0.4s; }
+
+/* Eksik Harf */
+.buyuk-kelime { font-size: 2.6rem; letter-spacing: 4px; }
+.buyuk-kelime .bosluk {
+  display: inline-block; min-width: 40px;
+  border-bottom: 4px solid var(--renk1); color: var(--renk1);
+}
+
+/* Harf Avı */
+.av-izgara { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.av-hucre {
+  aspect-ratio: 1;
+  border: none; border-radius: 14px;
+  background: var(--kart); color: var(--metin);
+  font-size: 2rem; font-weight: 700;
+  cursor: pointer; box-shadow: var(--golge);
+}
+.av-hucre:active { transform: translateY(3px); box-shadow: none; }
+.av-hucre.bulundu { background: var(--renk4); animation: buyu 0.3s; cursor: default; }
+.av-hucre.yanlis { background: #ffb3b3; animation: salla 0.4s; }
+
+/* Farklı Olanı Bul */
+.farkli-izgara { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 420px; margin: 0 auto; }
+.farkli-hucre {
+  aspect-ratio: 1;
+  border: none; border-radius: 20px;
+  background: var(--kart); color: var(--metin);
+  font-size: 3rem; font-weight: 700;
+  cursor: pointer; box-shadow: var(--golge);
+}
+.farkli-hucre:active { transform: translateY(3px); box-shadow: none; }
+.farkli-hucre.dogru { background: var(--renk4); animation: buyu 0.4s; }
+.farkli-hucre.yanlis { background: #ffb3b3; animation: salla 0.4s; }
+
 /* ---------- Ayarlar ---------- */
 .ayar-kutu { background: var(--kart); border-radius: var(--yuvarlak); padding: 20px; display: flex; flex-direction: column; gap: 10px; }
 .ayar-kutu label { font-weight: 700; font-size: 1.1rem; margin-top: 8px; }

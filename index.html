@@ -82,7 +82,53 @@
       <button class="buyuk-btn renk2" data-git="oyun-resim">🖼️ Hangi Harfle Başlar?</button>
       <button class="buyuk-btn renk3" data-git="oyun-eslestir">🃏 Büyük-Küçük Eşleştir</button>
       <button class="buyuk-btn renk4" data-git="oyun-balon">🎈 Balon Patlat</button>
+      <button class="buyuk-btn renk5" data-git="oyun-kelime">🧩 Kelime Kur</button>
+      <button class="buyuk-btn renk1" data-git="oyun-eksik">❓ Eksik Harf</button>
+      <button class="buyuk-btn renk2" data-git="oyun-av">🔍 Harf Avı</button>
+      <button class="buyuk-btn renk3" data-git="oyun-farkli">👀 Farklı Olanı Bul</button>
     </div>
+  </section>
+
+  <!-- OYUN: KELİME KUR -->
+  <section id="ekran-oyun-kelime" class="ekran oyun">
+    <div class="oyun-ust"><span id="kelime-tur"></span><span id="kelime-puan"></span></div>
+    <div class="soru-alan">
+      <div id="kelime-emoji" class="dev-emoji">🍎</div>
+      <button id="kelime-dinle" class="kucuk-btn">🔊 Kelimeyi dinle</button>
+      <p class="ipucu">Harflere sırayla dokun, kelimeyi kur!</p>
+      <div id="kelime-slotlar" class="slotlar"></div>
+    </div>
+    <div id="kelime-tasler" class="tasler"></div>
+  </section>
+
+  <!-- OYUN: EKSİK HARF -->
+  <section id="ekran-oyun-eksik" class="ekran oyun">
+    <div class="oyun-ust"><span id="eksik-tur"></span><span id="eksik-puan"></span></div>
+    <div class="soru-alan">
+      <div id="eksik-emoji" class="dev-emoji">🐱</div>
+      <button id="eksik-dinle" class="kucuk-btn">🔊 Kelimeyi dinle</button>
+      <p id="eksik-kelime" class="kelime-goster buyuk-kelime"></p>
+      <p class="ipucu">Eksik harf hangisi?</p>
+    </div>
+    <div id="eksik-secenekler" class="secenekler"></div>
+  </section>
+
+  <!-- OYUN: HARF AVI -->
+  <section id="ekran-oyun-av" class="ekran oyun">
+    <div class="oyun-ust">
+      <span>Bul: <b id="av-hedef" class="hedef-harf">a</b></span>
+      <span id="av-tur"></span>
+      <span id="av-kalan"></span>
+    </div>
+    <p class="ipucu">Tablodaki bütün hedef harfleri bul!</p>
+    <div id="av-izgara" class="av-izgara"></div>
+  </section>
+
+  <!-- OYUN: FARKLI OLANI BUL -->
+  <section id="ekran-oyun-farkli" class="ekran oyun">
+    <div class="oyun-ust"><span id="farkli-tur"></span><span id="farkli-puan"></span></div>
+    <p class="ipucu">Biri diğerlerinden farklı. Hangisi?</p>
+    <div id="farkli-izgara" class="farkli-izgara"></div>
   </section>
 
   <!-- OYUN: SES -->
