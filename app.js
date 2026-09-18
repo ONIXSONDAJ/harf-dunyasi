@@ -162,21 +162,28 @@ function turkceSes() {
   const sesler = speechSynthesis.getVoices();
   return sesler.find((v) => v.lang && v.lang.toLowerCase().startsWith('tr')) || null;
 }
-function konus(metin) {
+function konus(metin, hiz = 0.85) {
   if (!('speechSynthesis' in window)) return;
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(metin);
   u.lang = 'tr-TR';
-  u.rate = 0.85;
+  u.rate = hiz;
   u.pitch = 1.1;
   const v = turkceSes();
   if (v) u.voice = v;
   speechSynthesis.speak(u);
 }
-/* Tek harfin sesi: TTS'e uygun metin */
-function harfSesi(h) {
-  if (h === 'ğ') konus('yumuşak ge');
-  else konus(h);
+/* Harflerin Türkçe okunuşları (tek harf TTS'te belirsiz çıkıyor) */
+const HARF_ADI = {
+  a: 'a', b: 'be', c: 'ce', ç: 'çe', d: 'de', e: 'e', f: 'fe', g: 'ge', ğ: 'yumuşak ge',
+  h: 'he', ı: 'ı', i: 'i', j: 'je', k: 'ke', l: 'le', m: 'me', n: 'ne', o: 'o', ö: 'ö',
+  p: 'pe', r: 're', s: 'se', ş: 'şe', t: 'te', u: 'u', ü: 'ü', v: 've', y: 'ye', z: 'ze',
+};
+/* Tek harfin sesi: adı + örnek kelime, yavaş ve net */
+function harfSesi(h, kelimeli = true) {
+  const ad = HARF_ADI[h] || h;
+  const ornek = KELIMELER[h] ? KELIMELER[h][0][0] : '';
+  konus(kelimeli && ornek ? `${ad}. ${ornek}.` : ad, 0.7);
 }
 if ('speechSynthesis' in window) {
   speechSynthesis.onvoiceschanged = () => {};
@@ -370,7 +377,7 @@ $('#btn-ogrendim').addEventListener('click', () => {
   yildizEkle(1);
   sesEfekti('kazan');
   konfeti(40);
-  konus('Aferin! ' + buyuk(seciliHarf) + ' harfini öğrendin.');
+  konus(`Aferin! ${HARF_ADI[seciliHarf]} harfini öğrendin.`);
   harfAc(seciliHarf);
 });
 $('#onceki-harf').addEventListener('click', () => {
@@ -700,7 +707,7 @@ function balonBasla() {
   $('#balon-baslat').style.display = 'none';
   $('#balon-puan').textContent = '🎯 0';
   $('#balon-sure').textContent = '⏱ 45';
-  konus(balonOyun.hedef === 'ğ' ? 'yumuşak ge balonlarını patlat' : balonOyun.hedef + ' balonlarını patlat');
+  konus(`${HARF_ADI[balonOyun.hedef]} balonlarını patlat`, 0.8);
 
   zamanla(balonUret, 900, true);
   zamanla(() => {
